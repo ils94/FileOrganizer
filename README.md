@@ -4,3 +4,7 @@ This program will run a loop that will check your desktop and download folder, t
 
 # How to use it?
 Simple, click the big "START" button and it will start the loop. Pressing the big "STOP" button will stop it.
+
+# Download
+
+[Click here to download it](https://github.com/ils94/FileOrganizer/releases/download/release/FO.zip)
