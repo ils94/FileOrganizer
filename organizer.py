@@ -21,16 +21,19 @@ def move_documents_to_folder():
         if not os.path.exists(destination_folder):
             os.makedirs(destination_folder)
 
-        shutil.move(file_path, destination_folder)
+        try:
+            shutil.move(file_path, destination_folder)
+        except shutil.Error:
+            file_name = os.path.basename(file_path)
+            new_file_name = add_duplicate_suffix(file_name)
+            new_file_path = os.path.join(destination_folder, new_file_name)
+            shutil.move(file_path, new_file_path)
 
 
 def get_document_files(folder_path):
     document_extensions = [
         ".doc", ".docx", ".ppt", ".pptx", ".xls", ".xlsx", ".pdf",
         ".txt", ".rtf", ".csv", ".odt", ".ods", ".odp", ".pages", ".numbers",
-        ".mp4", ".mov", ".avi", ".mkv", ".wmv",
-        ".jpg", ".jpeg", ".png", ".gif", ".bmp",
-        ".mp3", ".wav", ".flac", ".aac"
     ]
 
     document_files = []
@@ -41,3 +44,9 @@ def get_document_files(folder_path):
                 document_files.append(os.path.join(root, file))
 
     return document_files
+
+
+def add_duplicate_suffix(file_name):
+    base_name, extension = os.path.splitext(file_name)
+    new_file_name = f"{base_name}_duplicate{extension}"
+    return new_file_name
